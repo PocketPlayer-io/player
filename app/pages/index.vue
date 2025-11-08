@@ -1,7 +1,7 @@
 <template>
   <section class="bg-red-400">
-    <section class="grid grid-cols-6 gap-3">
-      <div v-for="item in 6" class="col-span-6 md:col-span-2">
+    <section class="grid grid-cols-8 gap-3">
+      <div v-for="item in 6" class="col-span-4 md:col-span-2">
         <div class="card bg-gray-400 shadow-xl">
           <figure>
             <img
