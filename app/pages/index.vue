@@ -6,11 +6,11 @@
           <figure>
             <img
                 class="aspect-16/9"
-                src="https://img.youtube.com/vi/ZlfoKo1Li54/maxresdefault.jpg"
-                alt="Shoes" />
+                :src="'https://img.youtube.com/vi/' + video.youtubeid +'/maxresdefault.jpg'"
+            alt="Shoes" />
           </figure>
           <div class="card-body">
-            <h2 class="card-title">{{video.name}}</h2>
+            <h2 class="card-title">{{ video.name }}</h2>
             <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
             <div class="card-actions justify-end">
               <button class="btn btn-primary">watch</button>
@@ -28,8 +28,8 @@ import {usePocketBase} from "~/utils/pocketbase";
 const videos = ref([]);
 const pb = usePocketBase();
 
-const load = async () =>{
-  videos.value = (await pb.collection('videos').getList(1,12)).items;
+const load = async () => {
+  videos.value = (await pb.collection('videos').getList(1, 12)).items;
 }
 
 onMounted(load)
