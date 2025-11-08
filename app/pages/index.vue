@@ -29,7 +29,9 @@ const videos = ref([]);
 const pb = usePocketBase();
 
 const load = async () => {
-  videos.value = (await pb.collection('videos').getList(1, 12)).items;
+  videos.value = (await pb.collection('videos').getList(1, 12, {
+    sort: '-uploaded'
+  })).items;
 }
 
 onMounted(load)
