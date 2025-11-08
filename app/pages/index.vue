@@ -13,7 +13,6 @@
           </figure>
           <div class="card-body">
             <h2 class="card-title">{{ video.name }}</h2>
-            <p>{{ video.desc }}</p>
             <div class="card-actions justify-end">
               <button @click="navigateTo('/player?id='+video.youtubeid)" class="btn btn-primary">watch</button>
             </div>
@@ -28,12 +27,20 @@
 import {usePocketBase} from "~/utils/pocketbase";
 
 const videos = ref([]);
+const abos = ref([]);
 const pb = usePocketBase();
+const router = useRouter()
 
 const load = async () => {
+  if(!pb.authStore.isValid){
+    router.push('/login');
+  }
   videos.value = (await pb.collection('videos').getList(1, 12, {
     sort: '-uploaded'
   })).items;
+  abos.value = await pb.collection('abos', {
+    filter: 'user="' + pb.authStore.record.id + '"'
+  }).getFullList(100);
 }
 
 onMounted(load)
