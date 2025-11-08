@@ -1,7 +1,10 @@
 <template>
   <section class="bg-red-400">
-    <section class="grid grid-cols-8 gap-3">
-      <div v-for="video in videos" class="col-span-4 md:col-span-2">
+    <section class="flex justify-end">
+      <input type="number" v-model="page" min="1" class="input w-16 px-6mb-3 text-right"/>
+    </section>
+    <section class="grid grid-cols-6 gap-3">
+      <div v-for="video in videos" class="col-span-3 md:col-span-2">
         <div class="card bg-gray-400 shadow-xl">
           <figure>
             <a :href="'/player?id='+video.youtubeid">
@@ -30,18 +33,24 @@ const videos = ref([]);
 const abos = ref([]);
 const pb = usePocketBase();
 const router = useRouter()
+const page = ref(1);
 
 const load = async () => {
   if(!pb.authStore.isValid){
     router.push('/login');
   }
-  videos.value = (await pb.collection('videos').getList(1, 12, {
+  pb.autoCancellation(false);
+  videos.value = (await pb.collection('videos').getList(page.value, 12, {
     sort: '-uploaded'
   })).items;
   abos.value = await pb.collection('abos', {
     filter: 'user="' + pb.authStore.record.id + '"'
   }).getFullList(100);
 }
+
+watch(page, ()=>{
+  load();
+});
 
 onMounted(load)
 </script>
