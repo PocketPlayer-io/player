@@ -1,7 +1,7 @@
 <template>
   <section class="bg-red-400">
     <section class="grid grid-cols-8 gap-3">
-      <div v-for="item in 12" class="col-span-4 md:col-span-2">
+      <div v-for="video in videos" class="col-span-4 md:col-span-2">
         <div class="card bg-gray-400 shadow-xl">
           <figure>
             <img
@@ -10,7 +10,7 @@
                 alt="Shoes" />
           </figure>
           <div class="card-body">
-            <h2 class="card-title">Card Title</h2>
+            <h2 class="card-title">{{video.name}}</h2>
             <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
             <div class="card-actions justify-end">
               <button class="btn btn-primary">watch</button>
@@ -21,3 +21,16 @@
     </section>
   </section>
 </template>
+
+<script setup lang="ts">
+import {usePocketBase} from "~/utils/pocketbase";
+
+const videos = ref([]);
+const pb = usePocketBase();
+
+const load = async () =>{
+  videos.value = (await pb.collection('videos').getList(1,12)).items;
+}
+
+onMounted(load)
+</script>
