@@ -11,9 +11,9 @@
           </figure>
           <div class="card-body">
             <h2 class="card-title">{{ video.name }}</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+            <p>{{video.desc}}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">watch</button>
+              <button @click="navigateTo('/player?id='+video.youtubeid)" class="btn btn-primary">watch</button>
             </div>
           </div>
         </div>
