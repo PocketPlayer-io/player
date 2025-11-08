@@ -4,7 +4,7 @@
       <div v-for="video in videos" class="col-span-4 md:col-span-2">
         <div class="card bg-gray-400 shadow-xl">
           <figure>
-            <a :href="'/player?id='+video.youtubeid)">
+            <a :href="'/player?id='+video.youtubeid">
               <img
                   class="aspect-16/9"
                   :src="'https://img.youtube.com/vi/' + video.youtubeid +'/maxresdefault.jpg'"
