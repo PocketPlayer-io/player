@@ -3,8 +3,8 @@
     <section class="flex justify-end">
       <input type="number" v-model="page" min="1" class="input w-16 px-6mb-3 text-right"/>
     </section>
-    <section class="grid grid-cols-6 gap-3">
-      <div v-for="video in videos" class="col-span-3 md:col-span-2">
+    <section class="grid grid-cols-8 gap-3">
+      <div v-for="video in videos" class="col-span-4 md:col-span-2">
         <div class="card bg-gray-400 shadow-xl">
           <figure>
             <a :href="'/player?id='+video.youtubeid">
